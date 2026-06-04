@@ -108,3 +108,30 @@ class control:
             p = subprocess.Popen(cmd_list)
             self.processes.append(p)
             print(f"正在传输: {src} -> {ip}:{dst}")
+
+    def scp_to_pi(self, obj: list):
+        """传文件到树莓派（指定位置）
+        参数: [{"src": "本地文件路径", "ip": "树莓派IP", "pwd": "密码", "dst": "树莓派目标路径"}]
+        示例: [{"src": "/tmp/img.jpg", "ip": "192.168.12.1", "pwd": "123", "dst": "/home/pi/xiaogou/img.jpg"}]
+        """
+        for item in obj:
+            src = item.get("src")
+            ip = item.get("ip")
+            pwd = item.get("pwd")
+            dst = item.get("dst")
+
+            if not (src and ip and pwd and dst):
+                continue
+
+            cmd_list = [
+                "sshpass",
+                "-p", pwd,
+                "scp",
+                "-o", "StrictHostKeyChecking=no",
+                src,
+                f"pi@{ip}:{dst}"
+            ]
+
+            p = subprocess.Popen(cmd_list)
+            self.processes.append(p)
+            print(f"正在传输到树莓派: {src} -> {ip}:{dst}")

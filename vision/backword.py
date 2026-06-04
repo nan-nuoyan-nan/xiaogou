@@ -1,7 +1,7 @@
 import socket
 import json
 
-TARGET = ("192.168.123.161", 10001) # UDP目标地址：树莓派的IP和端口号（树莓派IP是192.168.12.1）
+TARGET = ("192.168.12.1", 10001) # UDP目标地址：树莓派IP和端口号
 
 _sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 创建UDP套接字，AF_INET表示IPv4协议族，SOCK_DGRAM表示UDP（无连接、数据报模式）
 
